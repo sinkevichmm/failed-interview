@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package fs;
+
+option go_package = "internal/proto";
+
+
+
+// option java_multiple_files = true;
+// option java_package = "io.grpc.examples.helloworld";
+// option java_outer_classname = "HelloWorldProto";
+
+import "google/protobuf/timestamp.proto";
+
+message FileInfo {
+  string name = 1;
+  string extension = 2;
+  google.protobuf.Timestamp date_upload = 3;
+  
+}
+
+message SaveFileRequest {
+  oneof data {
+    FileInfo file_info = 1;
+    bytes chunk_data = 2;
+  };
+}
+
+message SaveFileResponse {
+  string id = 1;
+}
+
+message GetFileInfoByIDRequest{
+  string id = 1;
+}
+
+message GetFileInfoByIDResponse{
+  FileInfo file_info = 1;
+}
+
+message GetFileIDsRequest {}
+
+message GetFileIDsResponse {
+  repeated string ids=1;
+}
+
+message GetFreeCapacityRequest {}
+
+message GetFreeCapacityResponse {
+  uint32 free_capacity=1;
+}
+
+message DeleteFileRequest {
+  string id = 1;
+}
+
+message DeleteFileResponse {}
+
+message GetFileByIDRequest {
+  string id = 1;
+}
+
+message GetFileByIDResponse {
+  oneof data {
+    FileInfo file_info = 1;
+    bytes chunk_data = 2;
+  };
+}
+
+
+
+
+
+service FileService {
+  rpc SaveFile(stream SaveFileRequest) returns (SaveFileResponse) {};
+  rpc GetFileInfoByID( GetFileInfoByIDRequest) returns (GetFileInfoByIDResponse) {};
+  rpc GetFileIDs( GetFileIDsRequest) returns (GetFileIDsResponse) {};
+  rpc GetFreeCapacity(GetFreeCapacityRequest) returns(GetFreeCapacityResponse){};
+  rpc DeleteFile( DeleteFileRequest) returns (DeleteFileResponse) {};
+  rpc GetFileByID(GetFileByIDRequest) returns (stream GetFileByIDResponse) {};
+  
+}
