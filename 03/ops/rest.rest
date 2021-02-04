@@ -1,0 +1,14 @@
+#############
+GET http://127.0.0.1:8080/v1/balance
+
+#########
+
+POST http://127.0.0.1:8080/v1/crawler
+content-type: application/json
+
+{
+	"links":"https://easymb.xyz\nhttps://golang.org",
+	"timeout": 6
+}
+
+##########

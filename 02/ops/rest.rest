@@ -1,0 +1,15 @@
+#############
+GET http://127.0.0.1:8080/v1/balance
+
+#########
+
+PUT http://127.0.0.1:8080/v1/balance
+content-type: application/json
+
+{
+	"idFrom":1,
+    "idTo":2,
+    "value":50
+}
+
+##########
